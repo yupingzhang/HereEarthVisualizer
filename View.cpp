@@ -90,14 +90,12 @@ void View::view() const
     glClear(GL_COLOR_BUFFER_BIT);  
     glColor3f(0, 1, 0);
 
+    glScalef(scale,scale,scale);
+    glTranslatef(position[0], position[1], 0.0);
+    
     glLineWidth(1);
     glRotatef(tilt, 1,0,0);
     glRotatef(pan, 0,1,0);
-     
-    //glScalef(0.5,0.5,0.5);
-    glScalef(scale,scale,scale);
-    glTranslatef(position[0], position[1], 0.0);
-    //glTranslatef(position[0], 0, position[1]);
 
     glRotatef(90, 1,0,0);
     glutWireSphere(0.99,19,19);
