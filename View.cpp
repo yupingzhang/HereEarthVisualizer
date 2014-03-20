@@ -89,21 +89,38 @@ void View::view() const
      
     glRotatef(90, 1,0,0);
     glScalef(0.5,0.5,0.5);
-    glutWireSphere(1,18,18);
+    glutWireSphere(0.99,19,19);
     glColor3f(0, 0.5, 0.8);
-    //glutSolidSphere(1,18,18);
+    glutSolidSphere(0.98,19,19);
 
     //draw marker
     glColor3f(0.0, 0.0, 1.0);
     Marker *equator = new Marker(PARALLEL, 0.0, 0.0);
     equator->draw();
-
+    
     glColor3f(1.0, 0.0, 0.0);
     Marker *prime_meridian = new Marker(MERIDIAN, 0.0, 0.0);
     prime_meridian->draw();
 
+    glColor3f(1.0, 1.0, 0.0);
+    Marker *tropic_of_cancer = new Marker(PARALLEL, 23.5, 0.0);
+    tropic_of_cancer->draw();
+
+    glColor3f(1.0, 1.0, 0.0);
+    Marker *tropic_of_capricorn = new Marker(PARALLEL, -23.5, 0.0);
+    tropic_of_capricorn->draw();
+
+    glColor3f(1.0, 0.0, 0.0);
+    Marker *arctic_circle = new Marker(PARALLEL, 66.5, 0.0);
+    arctic_circle->draw();
+
+    glColor3f(1.0, 0.0, 0.0);
+    Marker *antarctic_circle = new Marker(PARALLEL, -66.5, 0.0);
+    antarctic_circle->draw();
+
+    
     glColor3f(0.8, 0.5, 0.0);
-    Marker *point = new Marker(POINT, 51.50013/M_PI, -0.126305/M_PI);
+    Marker *point = new Marker(POINT, 51.50013, -0.126305);
     point->draw();
 
     gluLookAt(worldPos[0], worldPos[1], worldPos[2],

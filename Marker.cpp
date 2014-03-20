@@ -11,8 +11,8 @@
 
 Marker::Marker (int m, double lati, double longi) {
 	mode = m;
-    latitude = lati;
-    longitude = longi;
+    latitude = lati/M_PI;
+    longitude = longi/M_PI;
 
 }
 
