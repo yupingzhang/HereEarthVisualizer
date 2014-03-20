@@ -40,6 +40,7 @@ void View::reset()
 {
     // position[0] = position[1] = 0;
     speed = rotSpeed = direction = pan = tilt = 0;
+    scale = 0.5;
 }
 
 //
@@ -48,16 +49,19 @@ void View::reset()
 void View::update() 
 {
     int now = glutGet(GLUT_ELAPSED_TIME), elapsed = now - updateTime;
-    if (rotSpeed != 0) {
-        // update direction based on steering rotation
-        direction += elapsed * rotSpeed;
-        glutPostRedisplay();
-    }
-    if (speed != 0) {        
-        // update position based on direction and speed
-        Vec<2> heading = {{cosf(direction), sinf(direction)}};
-        position = position + elapsed * c_speed * heading;
-
+    if (scale_accelerate != 0) {
+        if (scale < 0.1)
+        {
+            scale = 0.1;
+        }
+        if (scale > 1.0)
+        { 
+            scale = 1.0;
+        }
+        else
+        {
+            scale += scale_accelerate * elapsed * 0.003;
+        }
         glutPostRedisplay();
     }
     updateTime = now;
@@ -88,7 +92,8 @@ void View::view() const
     glRotatef(pan, 0,1,0);
      
     glRotatef(90, 1,0,0);
-    glScalef(0.5,0.5,0.5);
+    //glScalef(0.5,0.5,0.5);
+    glScalef(scale,scale,scale);
     glutWireSphere(0.99,19,19);
     glColor3f(0, 0.5, 0.8);
     glutSolidSphere(0.98,19,19);

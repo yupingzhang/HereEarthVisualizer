@@ -17,6 +17,8 @@ public:
     float rotSpeed;  
     // head rotation
     float pan, tilt;
+    float scale;
+    float scale_accelerate;
     
 // public methods
 public:

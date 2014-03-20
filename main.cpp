@@ -13,7 +13,7 @@
 #else
 #include <GL/glut.h>
 #endif
-
+ 
 ///////
 // GLUT callbacks must use extern "C"
 extern "C" {
@@ -55,7 +55,7 @@ void reshape(int width, int height)
 //
 void mousePress(int button, int state, int x, int y)
 {
-    g_input.mousePress(button,x,y);
+    g_input.mousePress(button, state, x,y);
 }
 
 //
@@ -65,6 +65,13 @@ void mouseDrag(int x, int y)
 {
     g_input.mouseDrag(x,y);
 }
+
+//
+// called when scroll
+// void mouseScroll(int button, int state, int x, int y)
+// {
+//     g_input.mouseScroll(button, state, x,y);
+// }
 
 //
 // called on any keypress
@@ -97,7 +104,7 @@ void initGLUT(int *argcp, char *argv[])
     glutKeyboardUpFunc(keyRelease);
     glutMouseFunc(mousePress);
     glutMotionFunc(mouseDrag);
-    
+    //glutMouseWheelFunc(mouseScroll);   
 }
 
 // initialize OpenGL - rendering state

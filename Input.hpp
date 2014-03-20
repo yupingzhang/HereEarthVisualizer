@@ -14,10 +14,13 @@ public:
     Input() : mouseButton(0), oldX(0), oldY(0) {}
 
     // handle mouse press / start of motion
-    void mousePress(int button, int x, int y);
+    void mousePress(int button, int state, int x, int y);
 
     // handle mouse drag
     void mouseDrag(int x, int y);
+
+    // handle mouse scroll
+    //void mouseScroll(int button, int state, int x, int y);
 
     // handle key press
     void keyPress(int key);

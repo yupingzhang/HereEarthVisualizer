@@ -25,7 +25,7 @@ Input g_input;                  // global UI object
 // called when a mouse button is pressed. 
 // Remember where we were, and what mouse button it was.
 //
-void Input::mousePress(int button, int x, int y)
+void Input::mousePress(int button, int state, int x, int y)
 {
     mouseButton = button;
     oldX = x;
@@ -56,6 +56,26 @@ void Input::mouseDrag(int x, int y)
 }
 
 //
+// called when the mouse scroll
+//
+// void Input::mouseScroll(int button, int state, int x, int y)
+// {
+//     if (state > 0)
+//     {
+//         g_view.scale += 0.1;
+//     }
+//     else
+//     {
+//         if (g_view.scale > 0.01)
+//         {
+//             g_view.scale -= 0.1;
+//         }
+//     }
+//     glutPostRedisplay();
+
+// }
+
+//
 // called when any key is pressed
 //
 void Input::keyPress(int key)
@@ -72,21 +92,28 @@ void Input::keyPress(int key)
         g_view.reset();
         break;
 
-    // driving
-    case 'a':                   // rotate left
-        g_view.rotSpeed = c_rotation;
-        break;
-    case 'd':                   // rotate right
-        g_view.rotSpeed = -c_rotation;
-        break;
+    // moving
+    // case 'a':                   // left
+    //     g_view.rotate_x += -c_rotation;
+    //     break;
+    // case 'd':                   // right
+    //     g_view.rotate_x += c_rotation;
+    //     break;
 
-    case 'w':                   // accelerate
-        g_view.speed = c_speed;
+    // case 'w':                   // up
+    //     g_view.rotate_y += c_rotation;
+    //     break;
+    // case 's':                   // down
+    //     g_view.rotate_y += -c_rotation;
+    //     break;
+
+    //zoom
+    case 'z':
+        g_view.scale_accelerate = 0.1;
         break;
-    case 's':                   // decelerate
-        g_view.speed = -c_speed;
-        break;
-            
+    case 'x':
+        g_view.scale_accelerate = -0.1;
+        break;        
     case 27:                    // Escape: exit
         exit(0);
     }
@@ -104,12 +131,17 @@ void Input::keyRelease(int key)
     g_view.update();
 
     switch (key) {
-    case 'a': case 'd':         // stop rotating
-        g_view.rotSpeed = 0;
+    
+    case 'z': case 'x':         // stop rotating
+        g_view.scale_accelerate = 0;
         break;
 
-    case 'w': case 's':         // stop accelerating
-        g_view.speed = 0;
+    // case 'a': case 'd':         // stop rotating
+    //     g_view.rotate_x = 0;
+    //     break;
+
+    // case 'w': case 's':         // stop accelerating
+    //     g_view.rotate_y = 0;
     }
 }
 
