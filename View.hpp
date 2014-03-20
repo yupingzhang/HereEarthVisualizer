@@ -19,6 +19,7 @@ public:
     float pan, tilt;
     float scale;
     float scale_accelerate;
+    float move_x, move_y;
     
 // public methods
 public:
@@ -40,6 +41,5 @@ public:
 
 extern View g_view;                // global view object
 extern const float c_speed;
-extern const float c_rotation;     // rotation radians per ms
 
 #endif

@@ -92,20 +92,20 @@ void Input::keyPress(int key)
         g_view.reset();
         break;
 
-    // moving
-    // case 'a':                   // left
-    //     g_view.rotate_x += -c_rotation;
-    //     break;
-    // case 'd':                   // right
-    //     g_view.rotate_x += c_rotation;
-    //     break;
+    // rotate
+    case 'a':                   // left
+        g_view.move_x = -c_speed;
+        break;
+    case 'd':                   // right
+        g_view.move_x = c_speed;
+        break;
 
-    // case 'w':                   // up
-    //     g_view.rotate_y += c_rotation;
-    //     break;
-    // case 's':                   // down
-    //     g_view.rotate_y += -c_rotation;
-    //     break;
+    case 'w':                   // up
+        g_view.move_y = c_speed;
+        break;
+    case 's':                   // down
+        g_view.move_y = -c_speed;
+        break;
 
     //zoom
     case 'z':
@@ -136,12 +136,12 @@ void Input::keyRelease(int key)
         g_view.scale_accelerate = 0;
         break;
 
-    // case 'a': case 'd':         // stop rotating
-    //     g_view.rotate_x = 0;
-    //     break;
+    case 'a': case 'd':         // stop rotating
+        g_view.move_x = 0;
+        break;
 
-    // case 'w': case 's':         // stop accelerating
-    //     g_view.rotate_y = 0;
+    case 'w': case 's':         // stop 
+        g_view.move_y = 0;
     }
 }
 

@@ -16,11 +16,7 @@
 
 ////// GLUT requires data accessed by GLUT callbacks to be global :(
 View g_view;                    // global view object
-//Skydome g_skydome;
 
-////// behavioral constants
-// keyboard rotation per ms, about pi radians per second
-const float c_rotation = 0.003f;
 // speed
 const float c_speed = 0.05f;
 // view offset from terrain
@@ -38,8 +34,8 @@ View::View()
 //
 void View::reset()
 {
-    // position[0] = position[1] = 0;
-    speed = rotSpeed = direction = pan = tilt = 0;
+    position[0] = position[1] = 0;
+    speed = rotSpeed = pan = tilt = 0;
     scale = 0.5;
 }
 
@@ -64,6 +60,13 @@ void View::update()
         }
         glutPostRedisplay();
     }
+    if (move_x != 0 || move_y != 0)
+    {
+        position[0] += move_x * elapsed * 0.1;
+        position[1] += move_y * elapsed * 0.1;
+        glutPostRedisplay();
+    }
+
     updateTime = now;
 }
 
@@ -77,7 +80,7 @@ void View::view() const
     Vec<3> worldPos = c_viewOffset;
 
     // orient view to normal
-    Vec<3> worldDir = {{cosf(direction), sinf(direction), 0}};
+    Vec<3> worldDir = {{0, 0, 0}};
     Vec<3> normal = {{0,0,1}};
 
     Vec<3> atPos = worldPos + worldDir;
@@ -91,9 +94,12 @@ void View::view() const
     glRotatef(tilt, 1,0,0);
     glRotatef(pan, 0,1,0);
      
-    glRotatef(90, 1,0,0);
     //glScalef(0.5,0.5,0.5);
     glScalef(scale,scale,scale);
+    glTranslatef(position[0], position[1], 0.0);
+    //glTranslatef(position[0], 0, position[1]);
+
+    glRotatef(90, 1,0,0);
     glutWireSphere(0.99,19,19);
     glColor3f(0, 0.5, 0.8);
     glutSolidSphere(0.98,19,19);
